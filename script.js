@@ -64,11 +64,10 @@ function openModal(largeImageURL, imageRef) {
   refs.modalImage.src = largeImageURL; //set modal-image src attribute
   refs.modalImage.alt = imageRef.alt; //set modal-image alt attribute
   refs.modalImage.dataset.index = imageRef.dataset.index; //get INDEX
- 
+
   window.addEventListener("keydown", onPressEscape); // add event on ESC button
   window.addEventListener("keydown", onPressArrowKey); // add event on arrow buttons
 }
-
 
 function onPressArrowKey(event) {
   let activeIndex;
@@ -78,7 +77,8 @@ function onPressArrowKey(event) {
     activeIndex += 1;
 
     if (activeIndex >= images.length) {
-      return;
+      // return;
+      activeIndex = 0;
     }
     setNextImage(activeIndex);
   }
@@ -87,21 +87,23 @@ function onPressArrowKey(event) {
     activeIndex -= 1;
 
     if (activeIndex < 0) {
-      return;
+      // return;
+      activeIndex = images.length - 1;
     }
     setNextImage(activeIndex);
   }
+  console.log(event.code);
 }
 
 function setNextImage(activeIndex) {
   refs.modalImage.src = images[activeIndex].original;
   refs.modalImage.alt = images[activeIndex].description;
   refs.modalImage.dataset.index = activeIndex;
-
 }
 function closeModal() {
   refs.modal.classList.remove("is-open");
   window.removeEventListener("keydown", onPressEscape); // remove event on ESC button
+  window.removeEventListener("keydown", onPressArrowKey);// remove event on Arrow buttons when modal is closed
 }
 
 function onPressEscape(event) {
