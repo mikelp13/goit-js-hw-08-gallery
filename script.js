@@ -100,6 +100,7 @@ function setNextImage(activeIndex) {
   refs.modalImage.alt = images[activeIndex].description;
   refs.modalImage.dataset.index = activeIndex;
 }
+
 function closeModal() {
   refs.modal.classList.remove("is-open");
   window.removeEventListener("keydown", onPressEscape); // remove event on ESC button
